@@ -1,15 +1,9 @@
-
-## 4) `functions/capacity.ts`
-Cloudflare Pages Function at `/capacity`.
-
-```ts
 // /functions/capacity.ts
 // ZIVAI capacity signal endpoint (demo).
 // Non-executing. Non-authoritative. Stateless.
 // Emits a single capacity state.
 
 type Env = Record<string, unknown>;
-
 type CapacityState = "LOW" | "MEDIUM" | "HIGH" | "SATURATED" | "UNKNOWN";
 
 function clampInt(v: number, min: number, max: number): number {
@@ -42,7 +36,7 @@ function corsHeaders(origin: string | null): Record<string, string> {
     "access-control-allow-methods": "GET, OPTIONS",
     "access-control-allow-headers": "content-type, accept",
     "access-control-max-age": "86400",
-    "vary": "Origin",
+    vary: "Origin",
   };
 }
 
@@ -51,12 +45,19 @@ export async function onRequest({ request }: { request: Request; env: Env }) {
   const url = new URL(request.url);
 
   if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: { ...corsHeaders(origin) } });
+    return new Response(null, {
+      status: 204,
+      headers: { ...corsHeaders(origin) },
+    });
   }
 
   if (request.method !== "GET") {
     return new Response(
-      JSON.stringify({ error: { code: "method-not-allowed", message: "Use GET." } }, null, 2),
+      JSON.stringify(
+        { error: { code: "method-not-allowed", message: "Use GET." } },
+        null,
+        2,
+      ),
       {
         status: 405,
         headers: {
@@ -91,7 +92,6 @@ export async function onRequest({ request }: { request: Request; env: Env }) {
   return new Response(JSON.stringify(payload, null, 2), {
     headers: {
       "content-type": "application/json; charset=utf-8",
-      // Demo signal: always fresh.
       "cache-control": "no-store",
       ...corsHeaders(origin),
     },
