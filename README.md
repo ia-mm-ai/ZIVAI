@@ -1,12 +1,10 @@
 # ZIVAI
 
-Ambient intelligence · capacity regulation · non-executing.
+Ambient intelligence · Capacity regulation · Non-executing
 
 ZIVAI emits a single capacity state as a public, read-only signal.
 
-It does not act.  
-It does not decide.  
-It signals.
+It does not act. It does not decide. It signals.
 
 ## Contents
 - `public/index.html` — the ZIVAI surface (read-only)
@@ -26,4 +24,4 @@ Routes
 - `GET /capacity` → capacity signal (JSON)
 - `GET /version` → build metadata (JSON)
 
-Posture: demo-only · free · non-executing · non-authoritative · no identity · no persistence requirement
+Demo-only · Free · Non-authoritative · KENTRA INTEGRITY SYSTEMS LTD
