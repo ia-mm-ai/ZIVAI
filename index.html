@@ -2,152 +2,201 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>ZIVai</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="index,follow" />
-
-    <!-- Machine-readable pointers -->
-    <link rel="canonical" href="https://ziv.ai/" />
-    <link rel="alternate" type="application/json" title="third.site root" href="https://ispad.ai" />
-    <link rel="alternate" type="application/json" title="instances index" href="https://upad.ai" />
-
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="index" />
+    <title>ZIVAI</title>
+    <meta name="zivai" content="ambient · non-executing" />
     <style>
       :root {
-        --bg: #0b0b0b;
-        --fg: #d8d8d8;
-        --muted: #7a7a7a;
-        --line: rgba(255,255,255,0.10);
-        --card: rgba(255,255,255,0.03);
+        --bg: #05070c;
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.62);
+        --line: rgba(255, 255, 255, 0.12);
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial;
+        --ok: rgba(120, 255, 190, 0.92);
+        --warn: rgba(255, 210, 120, 0.92);
+        --bad: rgba(255, 120, 160, 0.92);
+        --unk: rgba(150, 200, 255, 0.92);
       }
-
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        background: var(--bg);
-        color: var(--fg);
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      * {
+        box-sizing: border-box;
       }
-
       body {
+        margin: 0;
+        min-height: 100vh;
+        background: radial-gradient(
+            1100px 700px at 25% 15%,
+            rgba(80, 255, 170, 0.08),
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 600px at 80% 30%,
+            rgba(120, 160, 255, 0.08),
+            transparent 60%
+          ),
+          var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
         display: grid;
         place-items: center;
       }
-
-      main {
-        width: min(860px, calc(100% - 48px));
-        padding: 28px 22px;
+      .wrap {
+        width: min(860px, calc(100vw - 28px));
         border: 1px solid var(--line);
-        border-radius: 18px;
-        background: var(--card);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+        border-radius: 20px;
+        padding: 22px 22px 18px;
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(10px);
       }
-
-      h1 {
-        margin: 0 0 10px 0;
-        font-size: 20px;
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 14px;
+      }
+      .meta {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .state {
+        margin-top: 18px;
+        border-top: 1px solid var(--line);
+        padding-top: 18px;
+        display: grid;
+        gap: 10px;
+      }
+      .label {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted);
         letter-spacing: 0.06em;
         text-transform: uppercase;
-        font-weight: 650;
       }
-
-      .sub {
-        margin: 0 0 18px 0;
-        color: var(--muted);
-        font-size: 13px;
+      .value {
+        font-family: var(--mono);
+        font-size: 34px;
+        font-weight: 900;
         letter-spacing: 0.02em;
       }
-
-      .divider {
-        height: 1px;
-        background: var(--line);
-        margin: 18px 0;
-      }
-
-      .copy {
-        white-space: pre-line;
-        line-height: 1.55;
-        font-size: 15px;
-        letter-spacing: 0.01em;
-      }
-
-      .mono {
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      }
-
-      .role {
-        display: inline-flex;
-        gap: 10px;
-        align-items: center;
-        margin-top: 14px;
-        color: var(--muted);
+      .stamp {
+        font-family: var(--mono);
         font-size: 12px;
+        color: var(--muted);
       }
-
-      .pill {
-        border: 1px solid var(--line);
-        padding: 4px 10px;
+      .posture {
+        margin-top: 14px;
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
         border-radius: 999px;
-        background: rgba(255,255,255,0.02);
+        margin-right: 10px;
+        vertical-align: middle;
+        background: var(--unk);
       }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-        border-bottom: 1px solid rgba(255,255,255,0.18);
+      .ok .dot {
+        background: var(--ok);
       }
-      a:hover {
-        border-bottom-color: rgba(255,255,255,0.45);
+      .warn .dot {
+        background: var(--warn);
+      }
+      .bad .dot {
+        background: var(--bad);
+      }
+      .unk .dot {
+        background: var(--unk);
       }
     </style>
   </head>
-
   <body>
-    <main>
-      <h1>ZIVai</h1>
-      <p class="sub mono">ambient intelligence • capacity regulation • non-executing</p>
-
-      <div class="copy">
-ZIVai governs how much additional change a live event can absorb without collapse.
-
-It observes aggregate field motion during a live event and emits a capacity state that informs pacing and orientation, without measuring individuals, creating truth, or executing decisions.
-
-ZIVai does not act.
-ZIVai signals.
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <div class="brand">ZIVAI</div>
+          <div class="meta">ambient intelligence · capacity regulation · non-executing</div>
+        </div>
+        <div class="meta" id="source">/capacity</div>
       </div>
 
-      <div class="divider"></div>
-
-      <div class="copy mono">___</div>
-
-      <div class="divider"></div>
-
-      <div class="copy">it should play its role.</div>
-
-      <div class="divider"></div>
-
-      <div class="copy mono">___</div>
-
-      <div class="divider"></div>
-
-      <div class="copy">Commentary not preferred. This is ambient intelligence, not G*****</div>
-
-      <div class="role">
-        <span class="pill mono">ROLE: CAPACITY_SIGNAL</span>
-        <span class="pill mono">MODE: OBSERVE → EMIT</span>
-        <span class="pill mono">EXECUTION: NONE</span>
+      <div class="state unk" id="stateBox">
+        <div class="label">Capacity State</div>
+        <div class="value"><span class="dot"></span><span id="state">UNKNOWN</span></div>
+        <div class="stamp" id="ts">—</div>
       </div>
-      <div class="role mono" style="opacity:0.65;">
-        before: <a href="https://upad.ai" target="_blank" rel="noopener">upad.ai</a>
-        &nbsp;|&nbsp;
-        after: <a href="https://ispad.ai" target="_blank" rel="noopener">ispad.ai</a>
+
+      <div class="posture">
+        <div>does not act</div>
+        <div>does not decide</div>
+        <div>signals</div>
       </div>
-      <div class="role" style="margin-top:10px;">
-        <span class="mono" style="opacity:0.65;">
-          root:
-          <a class="mono" href="https://upad.ai" target="_blank" rel="opener">UPAD</a>
-        </span>
-      </div>
-    </main>
+    </div>
+
+    <script>
+      (async () => {
+        const endpoint = "/capacity";
+        const sourceEl = document.getElementById("source");
+        const stateEl = document.getElementById("state");
+        const tsEl = document.getElementById("ts");
+        const box = document.getElementById("stateBox");
+
+        if (sourceEl) sourceEl.textContent = endpoint;
+
+        function setClass(cls) {
+          box.classList.remove("ok", "warn", "bad", "unk");
+          box.classList.add(cls);
+        }
+
+        function classify(state) {
+          const s = String(state || "").toUpperCase();
+          if (["LOW", "MEDIUM", "STABLE", "OK"].includes(s)) return "ok";
+          if (["HIGH", "NEARING", "WARN"].includes(s)) return "warn";
+          if (["SATURATED", "OVERLOAD", "BLOCK"].includes(s)) return "bad";
+          return "unk";
+        }
+
+        try {
+          const r = await fetch(endpoint, {
+            cache: "no-store",
+            headers: { accept: "application/json" },
+          });
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          const j = await r.json();
+
+          const state = j && (j.state || (j.artifact && j.artifact.state)) || "UNKNOWN";
+          const ts =
+            (j && (j.observed_at || j.timestamp_utc || j.ts)) ||
+            new Date().toISOString();
+
+          stateEl.textContent = String(state).toUpperCase();
+          tsEl.textContent = `observed_at: ${ts}`;
+          setClass(classify(state));
+        } catch {
+          stateEl.textContent = "UNKNOWN";
+          tsEl.textContent = "observed_at: —";
+          setClass("unk");
+        }
+      })();
+    </script>
   </body>
 </html>
